@@ -10,14 +10,34 @@ import (
 	"scoremaster/backend/services"
 )
 
+const (
+	ServerPort     = ":8080"
+	AllowedMethods = "GET"
+	AllowedOrigins = "*"
+)
+
 func SetupRouter(router *mux.Router) {
 	router.HandleFunc("/api/quiz", services.GetQuiz).Methods("GET")
 }
 
-func SetupServer(router *mux.Router) {
+func StartServer(router *mux.Router) {
+	logs.Error.Printf("Starting server on port %s...", ServerPort)
+	err := http.ListenAndServe(ServerPort, router)
+	//Check this error
+	logs.Error.FatalIf(err, "Failed to start server")
+}
+
+func SetupServer(router *mux.Router) http.Handler {
+	corsMiddleware := configureCORS([]string{AllowedMethods}, []string{AllowedOrigins})
+	return corsMiddleware(router)
+}
+
+func configureCORS(allowedMethods []string, allowedOrigins []string) func(http.Handler) http.Handler {
 	credentials := handlers.AllowCredentials()
-	methods := handlers.AllowedMethods([]string{"GET"})
+	methods := handlers.AllowedMethods(allowedMethods)
 	ttl := handlers.MaxAge(3600)
-	origins := handlers.AllowedOrigins([]string{"*"})
-	logs.Error.Println(http.ListenAndServe(":8080", handlers.CORS(credentials, methods, ttl, origins)(router)))
+	origins := handlers.AllowedOrigins(allowedOrigins)
+
+	return handlers.CORS(credentials, methods, ttl, origins)
+
 }

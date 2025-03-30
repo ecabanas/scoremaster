@@ -5,10 +5,21 @@ import (
 	"os"
 )
 
+type CustomLogger struct {
+	*log.Logger
+}
+
+func (l *CustomLogger) FatalIf(err error, message string) {
+	if err != nil {
+		l.Printf("%s: %v", message, err)
+		os.Exit(1)
+	}
+}
+
 var (
-	Info    *log.Logger
-	Warning *log.Logger
-	Error   *log.Logger
+	Info    *CustomLogger
+	Warning *CustomLogger
+	Error   *CustomLogger
 )
 
 func init() {
@@ -16,8 +27,8 @@ func init() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	Info = log.New(file, "INFO: ", log.Ldate|log.Ltime|log.Lshortfile)
-	Warning = log.New(file, "WARNING: ", log.Ldate|log.Ltime|log.Lshortfile)
-	Error = log.New(file, "ERROR: ", log.Ldate|log.Ltime|log.Lshortfile)
 
+	Info = &CustomLogger{log.New(file, "INFO: ", log.Ldate|log.Ltime|log.Lshortfile)}
+	Warning = &CustomLogger{log.New(file, "WARNING: ", log.Ldate|log.Ltime|log.Lshortfile)}
+	Error = &CustomLogger{log.New(file, "ERROR: ", log.Ldate|log.Ltime|log.Lshortfile)}
 }
