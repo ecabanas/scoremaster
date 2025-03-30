@@ -5,18 +5,12 @@ import (
 	// "os"
 
 	"scoremaster/backend/logs"
+	"scoremaster/backend/models"
 
 	// "github.com/joho/godotenv"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
-
-type Quiz struct {
-	gorm.Model
-	FirstName string
-	LastName  string
-	Email     string `gorm:"primaryKey"`
-}
 
 var (
 	DBConn *gorm.DB
@@ -41,5 +35,5 @@ func InitDatabase() {
 }
 
 func migrate() {
-	DBConn.AutoMigrate(&Quiz{})
+	DBConn.AutoMigrate(&models.Quiz{})
 }
