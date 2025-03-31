@@ -11,8 +11,11 @@ build:
 run: build
 		go run main.go
 
-remove:		
+clean:		
 		$(RM) ./logs.txt
 		$(RM) ./scoremaster.db
 
-.PHONY: build run remove
+test:
+		go test ./tests -v
+
+.PHONY: build run clean test

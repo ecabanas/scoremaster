@@ -4,28 +4,22 @@ import "gorm.io/gorm"
 
 type Quiz struct {
 	gorm.Model
-	ID    uint   `json:"primaryKey"`
-	Title string `json:"title"`
-	//Questions []Question `json:"questions"`
+	Title     string     `json:"title"`
+	Questions []Question `json:"questions" gorm:"foreignKey:QuizID" `
 }
 
 type Question struct {
 	gorm.Model
-	ID                  uint         `json:"primaryKey"`
-	Type                questionType `json:"type"`
-	QuestionText        string       `json:"questionText"`
-	QuestionDescription string       `json:"questionDescription"`
-	AnswerOptions       []Answer     `json:"answerOptions"`
-}
-
-type questionType struct {
-	Name       string   `json:"name"`       // e.g., "single_choice"
-	ValidRules []string `json:"validRules"` // e.g., ["required", "max_length:100"]
+	QuizID              uint     `json:"quizID"`
+	TypeID              uint     `json:"typeID"`
+	QuestionText        string   `json:"questionText"`
+	QuestionDescription string   `json:"questionDescription"`
+	AnswerOptions       []Answer `json:"answerOptions" gorm:"foreignKey:QuestionID" `
 }
 
 type Answer struct {
 	gorm.Model
-	ID     uint   `json:"primaryKey"`
-	Text   string `json:"text"`
-	Weight int    `json:"weight"`
+	QuestionID uint   `json:"questionID"`
+	Text       string `json:"text"`
+	Weight     int    `json:"weight"`
 }
