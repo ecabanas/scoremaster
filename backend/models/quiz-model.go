@@ -4,9 +4,9 @@ import "gorm.io/gorm"
 
 type Quiz struct {
 	gorm.Model
-	ID        uint       `json:"primaryKey"`
-	Title     string     `json:"title"`
-	Questions []Question `json:"questions"`
+	ID    uint   `json:"primaryKey"`
+	Title string `json:"title"`
+	//Questions []Question `json:"questions"`
 }
 
 type Question struct {

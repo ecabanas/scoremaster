@@ -20,10 +20,9 @@ func SetupRouter(router *mux.Router) {
 	router.HandleFunc("/api/quiz", services.GetQuiz).Methods("GET")
 }
 
-func StartServer(router *mux.Router) {
-	logs.Error.Printf("Starting server on port %s...", ServerPort)
+func StartServer(router http.Handler) {
+	logs.Info.Printf("Starting server on port %s...", ServerPort)
 	err := http.ListenAndServe(ServerPort, router)
-	//Check this error
 	logs.Error.FatalIf(err, "Failed to start server")
 }
 

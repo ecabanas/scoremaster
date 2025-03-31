@@ -12,5 +12,6 @@ func main() {
 
 	database.InitDatabase()
 	router.SetupRouter(r)
-	router.SetupServer(r)
+	wrappedRouter := router.SetupServer(r)
+	router.StartServer(wrappedRouter)
 }

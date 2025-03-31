@@ -27,7 +27,6 @@ func InitDatabase() {
 	// dsn := fmt.Sprintf("%s:%s@tcp(%s:3306)/%s?charset=utf8mb4&parseTime=True&loc=Local",
 	// 	dbUser, dbPass, dbHost, dbName)
 	DBConn, err = gorm.Open(sqlite.Open("scoremaster.db"), &gorm.Config{})
-	//DBConn, err = gorm.Open(sqlite.Open("scoremaster.db"), &gorm.Config{})
 	if err != nil {
 		logs.Error.Println("Failed to connect to database:")
 	}
@@ -36,4 +35,5 @@ func InitDatabase() {
 
 func migrate() {
 	DBConn.AutoMigrate(&models.Quiz{})
+	logs.Info.Println("Database migrated successfully")
 }
