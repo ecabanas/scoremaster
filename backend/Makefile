@@ -16,6 +16,6 @@ clean:
 		$(RM) ./scoremaster.db
 
 test:
-		go test ./tests -v
+		go test ./test -v
 
 .PHONY: build run clean test
