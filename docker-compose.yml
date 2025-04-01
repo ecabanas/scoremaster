@@ -4,7 +4,7 @@ services:
     container_name: scoremaster_api
     build: .
     ports:
-      - "9080:9080"
+      - "8080:8080"
     restart: always
     depends_on:
       db:
