@@ -1,0 +1,28 @@
+version: "3.9"
+services:
+  api:
+    container_name: scoremaster_api
+    build: .
+    ports:
+      - "9080:9080"
+    restart: always
+    depends_on:
+      db:
+        condition: service_healthy
+  db:
+    container_name: mysql_container
+    image: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_USER=${DB_USERNAME}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${DB_NAME}
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+
