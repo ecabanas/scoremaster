@@ -38,11 +38,11 @@ func InitDatabase() {
 
 func migrate() {
 	DBConn.AutoMigrate(
-		&models.Quiz{},
 		&models.Question{},
 		&models.Answer{},
-		&models.Lead{},
-		&models.LeadResponse{},
+		&models.Participant{},
+		&models.ParticipantAnswer{},
+		&models.Category{},
 	)
 	logs.Info.Println("Database migrated successfully")
 }

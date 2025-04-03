@@ -8,7 +8,7 @@ import (
 
 func GetQuizzes(writer http.ResponseWriter, request *http.Request) {
 	writer.Header().Set("Content-Type", "application/json")
-	var list []models.Quiz
+	var list []models.Question
 	json.NewEncoder(writer).Encode(list)
 }
 
