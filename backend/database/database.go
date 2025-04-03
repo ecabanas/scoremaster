@@ -9,8 +9,6 @@ import (
 
 	"github.com/joho/godotenv"
 	"gorm.io/driver/mysql"
-
-	//"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
 
@@ -38,11 +36,11 @@ func InitDatabase() {
 
 func migrate() {
 	DBConn.AutoMigrate(
+		&models.Category{},
 		&models.Question{},
 		&models.Answer{},
 		&models.Participant{},
 		&models.ParticipantAnswer{},
-		&models.Category{},
 	)
 	logs.Info.Println("Database migrated successfully")
 }
