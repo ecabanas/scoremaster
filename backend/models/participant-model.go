@@ -16,7 +16,7 @@ func init() {
 
 type Participant struct {
 	gorm.Model
-	Email              string              `json:"email" gorm:"unique"`
+	Email              string              `json:"email" gorm:"unique" validate:"required,email"`
 	SubmissionTime     time.Time           `json:"submission_time"`
 	ParticipantAnswers []ParticipantAnswer `json:"participant_answers" gorm:"foreignKey:ParticipantID"`
 	Metadata           string              `json:"metadata" gorm:"type:json"`
