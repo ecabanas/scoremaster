@@ -8,7 +8,9 @@ import (
 // Fetch all categories with their associated questions and answers
 func GetCategories() ([]models.Category, error) {
 	var categories []models.Category
-	err := database.DBConn.Preload("Questions.Answers").Find(&categories).Error
+	err := database.DBConn.
+		Preload("Questions.Answers").
+		Find(&categories).Error
 	return categories, err
 }
 
