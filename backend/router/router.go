@@ -11,14 +11,27 @@ import (
 )
 
 const (
-	ServerPort     = ":8080"
-	AllowedMethods = "GET"
-	AllowedOrigins = "*"
+	ServerPort        = ":8080"
+	AllowedMethods    = "GET"
+	AllowedOrigins    = "*"
+	QuizBaseRoute     = "/api/quizzes"
+	CategoryBaseRoute = "/api/categories"
+	QuestionBaseRoute = "/api/questions"
 )
 
 func SetupRouter(router *mux.Router) {
-	router.HandleFunc("/api/quiz", services.GetQuestionsWithAnswers).Methods("GET")
-	router.HandleFunc("/api/quiz", services.GetCategories).Methods("GET")
+	//Quiz-related routes
+	router.HandleFunc(QuizBaseRoute, services.GetQuestionsWithAnswers).Methods("GET")
+	router.HandleFunc(QuizBaseRoute, services.GetCategories).Methods("GET")
+
+	// Category-related routes
+	router.HandleFunc(CategoryBaseRoute, services.GetAllCategories).Methods("GET")
+	router.HandleFunc(CategoryBaseRoute, services.CreateCategory).Methods("POST")
+
+	// Question-related routes
+	router.HandleFunc(QuestionBaseRoute, services.GetAllQuestions).Methods("GET")
+	router.HandleFunc(QuestionBaseRoute, services.CreateQuestion).Methods("POST")
+
 }
 
 func StartServer(router http.Handler) {
