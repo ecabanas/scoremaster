@@ -17,8 +17,8 @@ const (
 )
 
 func SetupRouter(router *mux.Router) {
-	router.HandleFunc("/api/quiz", services.GetQuizzes).Methods("GET")
-	router.HandleFunc("/api/quiz", services.GetQuestions).Methods("GET")
+	router.HandleFunc("/api/quiz", services.GetQuestionsWithAnswers).Methods("GET")
+	router.HandleFunc("/api/quiz", services.GetCategories).Methods("GET")
 }
 
 func StartServer(router http.Handler) {

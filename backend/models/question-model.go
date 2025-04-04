@@ -12,6 +12,7 @@ type Category struct {
 type Question struct {
 	gorm.Model
 	CategoryID   uint     `json:"category_id" gorm:"foreignKey:CategoryID"`
+	Category     Category `json:"category" gorm:"foreignKey:CategoryID"`
 	QuestionText string   `json:"question_text"`
 	QuestionDesc string   `json:"question_desc"`
 	Order        int      `json:"order"`
