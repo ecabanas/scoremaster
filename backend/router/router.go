@@ -6,8 +6,8 @@ import (
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 
+	"scoremaster/backend/controllers"
 	"scoremaster/backend/logs"
-	"scoremaster/backend/services"
 )
 
 const (
@@ -21,16 +21,16 @@ const (
 
 func SetupRouter(router *mux.Router) {
 	//Quiz-related routes
-	router.HandleFunc(QuizBaseRoute, services.GetQuestionsWithAnswers).Methods("GET")
-	router.HandleFunc(QuizBaseRoute, services.GetCategories).Methods("GET")
+	router.HandleFunc(QuizBaseRoute, controllers.GetQuestionsWithAnswers).Methods("GET")
+	router.HandleFunc(QuizBaseRoute, controllers.GetCategories).Methods("GET")
 
 	// Category-related routes
-	router.HandleFunc(CategoryBaseRoute, services.GetAllCategories).Methods("GET")
-	router.HandleFunc(CategoryBaseRoute, services.CreateCategory).Methods("POST")
+	router.HandleFunc(CategoryBaseRoute, controllers.GetCategories).Methods("GET")
+	router.HandleFunc(CategoryBaseRoute, controllers.CreateCategory).Methods("POST")
 
 	// Question-related routes
-	router.HandleFunc(QuestionBaseRoute, services.GetAllQuestions).Methods("GET")
-	router.HandleFunc(QuestionBaseRoute, services.CreateQuestion).Methods("POST")
+	router.HandleFunc(QuestionBaseRoute, controllers.GetQuestionsWithAnswers).Methods("GET")
+	router.HandleFunc(QuestionBaseRoute, controllers.CreateQuestion).Methods("POST")
 
 }
 
