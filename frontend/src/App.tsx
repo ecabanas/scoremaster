@@ -2,7 +2,7 @@ import Navbar from './components/Navbar';
 import HomePage from './pages/Home';
 import AboutPage from './pages/About';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import PopupForm from './components/popup-component';
+import PopupForm from './components/userForm/PopupForm';
 
 function App() {
   return (
