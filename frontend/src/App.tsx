@@ -2,6 +2,7 @@ import Navbar from './components/Navbar';
 import HomePage from './pages/Home';
 import AboutPage from './pages/About';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import PopupForm from './components/popup-component';
 
 function App() {
   return (
@@ -14,8 +15,11 @@ function App() {
             <Route path="/about" element={<AboutPage />} />
           </Routes>
         </div>
+        <div className = "flex justify-center my-6">
+          <PopupForm />
+        </div>
         <footer className="bg-base-300 text-base-content py-6 text-center">
-          <p>Copyright © 2025 - My Awesome Site</p>
+          <p>Copyright © 2025 - My Awesome Site!</p>
         </footer>
       </div>
     </Router>
