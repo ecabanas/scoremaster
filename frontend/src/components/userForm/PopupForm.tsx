@@ -1,10 +1,11 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { usePopupForm } from '../../hooks/usePopupForm';
 import FormContent from './FormContent';
 
 function PopupForm() {
   const { isVisible, setIsVisible } = usePopupForm();
   const modalRef = useRef<HTMLDivElement>(null);
+  const openButtonRef = useRef<HTMLButtonElement>(null);
 
   const handleFormSubmit = (data: { name: string; email: string }) => {
     console.log('Form Data:', data);
@@ -18,13 +19,23 @@ function PopupForm() {
       }
     };
 
+    // Manage focus when the modal opens or closes
+  useEffect(() => {
+    if (isVisible) {
+      modalRef.current?.querySelector('input')?.focus(); // Focus the first input in the modal
+    } else {
+      openButtonRef.current?.focus(); // Return focus to the open button
+    }
+  }, [isVisible]);
+
   return (
     <>
       {/* Button to open the form */}
       <button className="btn btn-primary"
       onClick={() => setIsVisible(true)}
       aria-haspopup="dialog"
-      aria-expanded={isVisible} >
+      aria-expanded={isVisible} 
+      ref ={openButtonRef}>
         Open Form
       </button>
 
@@ -38,7 +49,7 @@ function PopupForm() {
           <div className="card w-96 bg-base-100 shadow-xl"
           ref={modalRef}>
             <div className="card-body">
-              <h2 className="card-title text-center">Enter Your Details</h2>
+              <h2 id ="popup-title" className="card-title text-center">Enter Your Details</h2>
               <FormContent
                 onSubmit={handleFormSubmit} // Pass the submit handler
                 onCancel={() => setIsVisible(false)} // Close the pop-up on cancel
