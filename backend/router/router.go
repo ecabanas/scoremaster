@@ -11,15 +11,19 @@ import (
 )
 
 const (
-	ServerPort        = ":8080"
-	AllowedMethods    = "GET"
-	AllowedOrigins    = "*"
-	QuizBaseRoute     = "/api/quizzes"
-	CategoryBaseRoute = "/api/categories"
-	QuestionBaseRoute = "/api/questions"
+	ServerPort           = ":8080"
+	AllowedMethods       = "GET"
+	AllowedOrigins       = "*"
+	QuizBaseRoute        = "/api/quizzes"
+	CategoryBaseRoute    = "/api/categories"
+	QuestionBaseRoute    = "/api/questions"
+	ParticipantBaseRoute = "/api/participants"
 )
 
 func SetupRouter(router *mux.Router) {
+	// Create a new Participant
+	router.HandleFunc(ParticipantBaseRoute, controllers.CreateParticipant).Methods("POST")
+
 	//Quiz-related routes
 	router.HandleFunc(QuizBaseRoute, controllers.GetQuestionsWithAnswers).Methods("GET")
 	router.HandleFunc(QuizBaseRoute, controllers.GetCategories).Methods("GET")
@@ -36,12 +40,14 @@ func SetupRouter(router *mux.Router) {
 
 func StartServer(router http.Handler) {
 	logs.Info.Printf("Starting server on port %s...", ServerPort)
-	err := http.ListenAndServe(ServerPort, router)
+	err := http.ListenAndServe("0.0.0.0"+ServerPort, router)
 	logs.Error.FatalIf(err, "Failed to start server")
 }
 
 func SetupServer(router *mux.Router) http.Handler {
-	corsMiddleware := configureCORS([]string{AllowedMethods}, []string{AllowedOrigins})
+	corsMiddleware := configureCORS(
+		[]string{AllowedMethods},
+		[]string{AllowedOrigins})
 	return corsMiddleware(router)
 }
 

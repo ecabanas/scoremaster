@@ -5,7 +5,7 @@ export const useSubmitForm = () => {
   const sendDataToBackend = async (data: any) => {
     try {
       const response = await apiClient.post<ApiResponse<SubmitResponseData>>(
-        `${import.meta.env.VITE_API_BASE_URL}/submit`,
+        `${import.meta.env.VITE_API_BASE_URL}/participants`,
         data
       );
       return response.data;

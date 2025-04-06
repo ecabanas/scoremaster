@@ -4,9 +4,9 @@ FROM golang:alpine AS builder
 WORKDIR /app
 
 # Copy only go.mod and go.sum first to cache dependencies
-COPY backend/go.mod backend/go.sum ./
-COPY backend/ ./
-COPY .env ./
+COPY ./backend/go.mod ./backend/go.sum ./
+COPY ./backend/ ./
+COPY ./backend/.env ./
 
 RUN go mod download
 RUN go build -o main .
@@ -23,7 +23,7 @@ COPY --from=builder /app/main .
 COPY --from=builder /app/.env .
 
 # Expose the necessary ports
-EXPOSE 9080
+EXPOSE 8080
 EXPOSE 3306
 
 # Command to run the executable
