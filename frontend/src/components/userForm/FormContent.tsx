@@ -1,7 +1,7 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { formValidationSchema } from '../../validation/formValidation'; // Import the validation schema
-
+import axios from 'axios';
+import { formValidationSchema } from '../../validation/formValidation';
 // Define the form input types
 interface FormInputs {
   name: string;
@@ -23,8 +23,18 @@ function FormContent({ onSubmit, onCancel }: FormContentProps) {
     resolver: yupResolver(formValidationSchema), // Use the imported validation schema
   });
 
+  const sendDataToBackend = async (data: FormInputs) => {
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/submit`, data);
+      console.log('Data submitted successfully:', response.data);
+    } catch (error) {
+      console.error('Error submitting data:', error);
+    }
+  };
+
   // Submit handler
   const handleFormSubmit: SubmitHandler<FormInputs> = (data) => {
+    sendDataToBackend(data); // Send data to the backend
     onSubmit(data); // Pass validated data to the parent component
   };
 
