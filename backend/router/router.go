@@ -12,8 +12,8 @@ import (
 
 const (
 	ServerPort           = ":8080"
-	AllowedMethods       = "GET"
-	AllowedOrigins       = "*"
+	AllowedMethods       = "GET, POST, PUT, DELETE, OPTIONS"
+	AllowedOrigins       = "http://localhost:5173"
 	QuizBaseRoute        = "/api/quizzes"
 	CategoryBaseRoute    = "/api/categories"
 	QuestionBaseRoute    = "/api/questions"
@@ -40,7 +40,7 @@ func SetupRouter(router *mux.Router) {
 
 func StartServer(router http.Handler) {
 	logs.Info.Printf("Starting server on port %s...", ServerPort)
-	err := http.ListenAndServe("0.0.0.0"+ServerPort, router)
+	err := http.ListenAndServe(ServerPort, router)
 	logs.Error.FatalIf(err, "Failed to start server")
 }
 
@@ -56,7 +56,8 @@ func configureCORS(allowedMethods []string, allowedOrigins []string) func(http.H
 	methods := handlers.AllowedMethods(allowedMethods)
 	ttl := handlers.MaxAge(3600)
 	origins := handlers.AllowedOrigins(allowedOrigins)
+	headers := handlers.AllowedHeaders([]string{"Content-Type", "Authorization", "Origin", "Accept", "X-Requested-With"})
 
-	return handlers.CORS(credentials, methods, ttl, origins)
+	return handlers.CORS(credentials, methods, ttl, origins, headers)
 
 }
