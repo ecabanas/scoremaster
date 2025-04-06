@@ -6,7 +6,7 @@ WORKDIR /app
 # Copy only go.mod and go.sum first to cache dependencies
 COPY ./backend/go.mod ./backend/go.sum ./
 COPY ./backend/ ./
-COPY ./backend/.env ./
+COPY ./.env ./
 
 RUN go mod download
 RUN go build -o main .
