@@ -2,13 +2,8 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { formValidationSchema } from '../../validation/formValidation';
 import apiClient from '../../services/apiClient';
-
-
-// Define the form input types
-interface FormInputs {
-  name: string;
-  email: string;
-}
+import { ApiResponse, SubmitResponseData } from '../../interfaces/apiResponses';
+import { FormInputs } from '../../interfaces/formInputs';
 
 interface FormContentProps {
   onSubmit: (data: FormInputs) => void;
@@ -27,7 +22,7 @@ function FormContent({ onSubmit, onCancel }: FormContentProps) {
 
   const sendDataToBackend = async (data: FormInputs) => {
     try {
-      const response = await apiClient.post(`${import.meta.env.VITE_API_BASE_URL}/submit`, data);
+      const response = await apiClient.post<ApiResponse<SubmitResponseData>>(`${import.meta.env.VITE_API_BASE_URL}/submit`, data);
       console.log('Data submitted successfully:', response.data);
     } catch (error) {
       console.error('Error submitting data:', error);
