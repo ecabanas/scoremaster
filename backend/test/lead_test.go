@@ -2,7 +2,6 @@ package test
 
 import (
 	"testing"
-	"time"
 
 	"scoremaster/backend/models"
 )
@@ -18,8 +17,8 @@ func TestLeadCreation(t *testing.T) {
 
 	// Create a lead associated with the quiz
 	lead := models.Participant{
-		Email:          "test@example.com",
-		SubmissionTime: time.Now(),
+		Name:  "Test Lead",
+		Email: "test@example.com",
 	}
 
 	if err := db.Create(&lead).Error; err != nil {
