@@ -11,13 +11,14 @@ import (
 )
 
 const (
-	ServerPort           = ":8080"
-	AllowedMethods       = "GET, POST, PUT, DELETE, OPTIONS"
-	AllowedOrigins       = "http://localhost:5173"
-	QuizBaseRoute        = "/api/quizzes"
-	CategoryBaseRoute    = "/api/categories"
-	QuestionBaseRoute    = "/api/questions"
-	ParticipantBaseRoute = "/api/participants"
+	ServerPort                 = ":8080"
+	AllowedMethods             = "GET, POST, PUT, DELETE, OPTIONS"
+	AllowedOrigins             = "http://localhost:5173"
+	QuizBaseRoute              = "/api/quizzes"
+	CategoryBaseRoute          = "/api/categories"
+	QuestionBaseRoute          = "/api/questions"
+	ParticipantBaseRoute       = "/api/participants"
+	ParticipantAnswerBaseRoute = "/api/participants-answers"
 )
 
 func SetupRouter(router *mux.Router) {
@@ -35,6 +36,9 @@ func SetupRouter(router *mux.Router) {
 	// Question-related routes
 	router.HandleFunc(QuestionBaseRoute, controllers.GetQuestionsWithAnswers).Methods("GET")
 	router.HandleFunc(QuestionBaseRoute, controllers.CreateQuestion).Methods("POST")
+
+	// ParticipantAnswer-related routes
+	router.HandleFunc(ParticipantAnswerBaseRoute, controllers.CreateParticipantAnswer).Methods("POST")
 
 }
 

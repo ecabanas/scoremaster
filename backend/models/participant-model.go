@@ -1,8 +1,6 @@
 package models
 
 import (
-	"time"
-
 	"github.com/go-playground/validator/v10"
 
 	"gorm.io/gorm"
@@ -23,11 +21,10 @@ type Participant struct {
 
 type ParticipantAnswer struct {
 	gorm.Model
-	ParticipantID    uint      `json:"participant_id" gorm:"foreignKey:ParticipantID"`
-	QuestionID       uint      `json:"question_id" gorm:"foreignKey:QuestionID"`
-	SelectedAnswerID uint      `json:"selected_answer_id"`
-	Score            int       `json:"score"`
-	AnswerTimestamp  time.Time `json:"answer_timestamp"`
+	ParticipantID    uint `json:"participant_id" gorm:"foreignKey:ParticipantID"`
+	QuestionID       uint `json:"question_id" gorm:"foreignKey:QuestionID"`
+	SelectedAnswerID uint `json:"selected_answer_id"`
+	Score            int  `json:"score"`
 }
 
 func (p *Participant) Validate() error {
