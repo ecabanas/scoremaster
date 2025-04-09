@@ -1,6 +1,3 @@
-.PHONY: build up down restart logs clean ps exec migrate env-setup help
-
-# Docker compose command with options
 DOCKER_COMPOSE := docker-compose
 
 # Colors
@@ -10,17 +7,19 @@ NC := \033[0m # No Color
 
 help:
 	@echo "${YELLOW}ScoreMaster Docker Management${NC}"
-	@echo "${GREEN}make build${NC}    - Build all containers"
-	@echo "${GREEN}make up${NC}       - Start all containers in detached mode"
-	@echo "${GREEN}make down${NC}     - Stop and remove all containers"
-	@echo "${GREEN}make restart${NC}  - Restart all containers"
-	@echo "${GREEN}make logs${NC}     - View logs of all containers"
-	@echo "${GREEN}make logs-api${NC} - View logs of the API container"
-	@echo "${GREEN}make logs-db${NC}  - View logs of the database container"
-	@echo "${GREEN}make clean${NC}    - Stop containers and remove volumes"
-	@echo "${GREEN}make ps${NC}       - List running containers"
-	@echo "${GREEN}make exec-api${NC} - Execute commands in API container"
-	@echo "${GREEN}make exec-db${NC}  - Execute commands in DB container"
+	@echo "${GREEN}make build${NC}    		- Build all containers"
+	@echo "${GREEN}make up${NC}       		- Start all containers in detached mode"
+	@echo "${GREEN}make down${NC}     		- Stop and remove all containers"
+	@echo "${GREEN}make restart${NC}  		- Restart all containers"
+	@echo "${GREEN}make logs${NC}     		- View logs of all containers"
+	@echo "${GREEN}make logs-front${NC}     	- View logs of the frontend container"
+	@echo "${GREEN}make logs-back${NC}		- View logs of the backend container"
+	@echo "${GREEN}make logs-db${NC}  		- View logs of the database container"
+	@echo "${GREEN}make clean${NC}    		- Stop containers and remove volumes"
+	@echo "${GREEN}make ps${NC}       		- List running containers"
+	@echo "${GREEN}make exec-front${NC} 	- Execute commands in frontend container"
+	@echo "${GREEN}make exec-back${NC} 	- Execute commands in backend container"
+	@echo "${GREEN}make exec-db${NC}  		- Execute commands in DB container"
 
 build:
 	@echo "${YELLOW}Building containers...${NC}"
@@ -42,9 +41,13 @@ logs:
 	@echo "${YELLOW}Viewing logs...${NC}"
 	@$(DOCKER_COMPOSE) logs -f
 
-logs-api:
-	@echo "${YELLOW}Viewing API logs...${NC}"
-	@$(DOCKER_COMPOSE) logs -f api
+logs-front:
+	@echo "${YELLOW}Viewing frontend logs...${NC}"
+	@$(DOCKER_COMPOSE) logs -f frontend
+
+logs-back:
+	@echo "${YELLOW}Viewing backend logs...${NC}"
+	@$(DOCKER_COMPOSE) logs -f backend
 
 logs-db:
 	@echo "${YELLOW}Viewing database logs...${NC}"
@@ -58,10 +61,16 @@ ps:
 	@echo "${YELLOW}Listing running containers...${NC}"
 	@$(DOCKER_COMPOSE) ps
 
-exec-api:
-	@echo "${YELLOW}Executing command in API container...${NC}"
-	@$(DOCKER_COMPOSE) exec api sh
+exec-front:
+	@echo "${YELLOW}Executing command in frontend container...${NC}"
+	@$(DOCKER_COMPOSE) exec frontend sh
+
+exec-back:
+	@echo "${YELLOW}Executing command in backend container...${NC}"
+	@$(DOCKER_COMPOSE) exec backend sh
 
 exec-db:
 	@echo "${YELLOW}Executing command in DB container...${NC}"
 	@$(DOCKER_COMPOSE) exec db bash
+
+.PHONY: build up down restart logs clean ps exec migrate env-setup help
