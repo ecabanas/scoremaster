@@ -12,7 +12,7 @@ import (
 
 const (
 	ServerPort                 = ":8080"
-	AllowedMethods             = "GET, POST, PUT, DELETE, OPTIONS"
+	AllowedMethods             = "GET,POST,PUT,DELETE,OPTIONS"
 	AllowedOrigins             = "http://localhost:5173"
 	QuizBaseRoute              = "/api/quizzes"
 	CategoryBaseRoute          = "/api/categories"

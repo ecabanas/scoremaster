@@ -4,9 +4,8 @@ FROM golang:alpine AS builder
 WORKDIR /app
 
 # Copy only go.mod and go.sum first to cache dependencies
-COPY ./backend/go.mod ./backend/go.sum ./
-COPY ./backend/ ./
-COPY ./.env ./
+COPY ./backend/ .
+COPY .env .
 
 RUN go mod download
 RUN go build -o main .
