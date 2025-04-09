@@ -4,7 +4,7 @@ FROM golang:alpine AS builder
 WORKDIR /app
 
 # Copy only go.mod and go.sum first to cache dependencies
-COPY ./backend/ .
+COPY backend/ .
 COPY .env .
 
 RUN go mod download
