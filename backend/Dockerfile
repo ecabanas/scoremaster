@@ -4,8 +4,7 @@ FROM golang:alpine AS builder
 WORKDIR /app
 
 # Copy only go.mod and go.sum first to cache dependencies
-COPY backend/ .
-COPY .env .
+COPY . .
 
 RUN go mod download
 RUN go build -o main .
@@ -15,11 +14,10 @@ FROM alpine:latest
 RUN apk --no-cache add ca-certificates
 
 # Set the working directory for the final image
-WORKDIR /root/
+WORKDIR /app/
 
 # Copy the pre-built binary and .env file from the builder stage
 COPY --from=builder /app/main .
-COPY --from=builder /app/.env .
 
 # Expose the necessary ports
 EXPOSE 8080

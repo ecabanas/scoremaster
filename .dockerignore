@@ -3,8 +3,8 @@ dist
 .git
 .gitignore
 *.log
-.env*
 .DS_Store
 .vscode
 coverage
 README.md
+npm-debug.log

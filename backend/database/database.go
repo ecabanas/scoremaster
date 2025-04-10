@@ -14,9 +14,11 @@ import (
 
 var DBConn *gorm.DB
 
+func init() {
+	godotenv.Load()
+}
 func InitDatabase() {
 	var err error
-	godotenv.Load()
 	dbUser := os.Getenv("DB_USERNAME")
 	dbPass := os.Getenv("DB_PASSWORD")
 	dbHost := os.Getenv("DB_HOST")
