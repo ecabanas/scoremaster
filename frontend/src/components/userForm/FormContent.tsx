@@ -1,11 +1,11 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { formValidationSchema } from '../../validation/formValidation';
-import { FormInputs } from '../../types/formInputs';
+import { ParticipantFormData } from '../../types/ParticipantFormData';
 import { createParticipant } from '../../services/apiClient';
 
 interface FormContentProps {
-  onSubmit: (data: FormInputs) => void;
+  onSubmit: (data: ParticipantFormData) => void;
   onCancel: () => void;
 }
 
@@ -15,14 +15,14 @@ function FormContent({ onSubmit, onCancel }: FormContentProps) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormInputs>({
+  } = useForm<ParticipantFormData>({
     resolver: yupResolver(formValidationSchema), // Use the imported validation schema
   });
 
   // Submit handler
-  const handleFormSubmit: SubmitHandler<FormInputs> = async (data) => {
+  const handleFormSubmit: SubmitHandler<ParticipantFormData> = async (data) => {
     try {
-      const newParticipant = await createParticipant(data); 
+      const newParticipant = await createParticipant(data);
       onSubmit(newParticipant); // Pass validated data to the parent component
     } catch (error: any) {
       const errorMessage = error.response?.data?.message || 'An unexpected error occurred';

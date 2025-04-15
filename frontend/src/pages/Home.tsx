@@ -1,3 +1,4 @@
+import PopupForm from "../components/userForm/PopupForm";
 
 function HomePage() {
   return (
@@ -9,7 +10,7 @@ function HomePage() {
             <p className="py-6 text-lg text-gray-700">
               This is the homepage of our awesome website. Feel free to explore!
             </p>
-            <button className="btn btn-secondary">Learn More</button>
+            <PopupForm />
           </div>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { ParticipantFormData } from '../types/ParticipantFormData';
 // Create an Axios instance
 const apiClient = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -8,9 +9,9 @@ const apiClient = axios.create({
 });
 
 // Create a new participant
-export const createParticipant = async (participant: { name: string; email: string }) => {
-    const response = await apiClient.post('/participants', participant);
-    return response.data;
-  };
+export const createParticipant = async (participant: ParticipantFormData) => {
+  const response = await apiClient.post('/participants', participant);
+  return response.data;
+};
 
 export default apiClient;

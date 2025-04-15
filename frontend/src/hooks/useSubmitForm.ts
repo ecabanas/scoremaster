@@ -1,11 +1,12 @@
 import apiClient from '../services/apiClient';
 import { ApiResponse, SubmitResponseData } from '../types/apiResponses';
+import { ParticipantFormData } from '../types/ParticipantFormData';
 
 export const useSubmitForm = () => {
-  const sendDataToBackend = async (data: any) => {
+  const sendDataToBackend = async (data: ParticipantFormData) => {
     try {
       const response = await apiClient.post<ApiResponse<SubmitResponseData>>(
-        `${import.meta.env.VITE_API_BASE_URL}/participants`,
+        '/participants',
         data
       );
       return response.data;
