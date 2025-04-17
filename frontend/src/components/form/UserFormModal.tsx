@@ -9,28 +9,23 @@ const UserFormModal = () => {
   const modalRef = useRef<HTMLDivElement>(null);
   const openButtonRef = useRef<HTMLButtonElement>(null);
 
-  // Handle form submission
   const handleFormSubmit = (data: ParticipantFormData) => {
     console.log('Form Data:', data);
-    close(); // Close the modal after submission
+    close();
   };
 
-  // Close when clicking outside of modal
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
       close();
     }
   };
 
-  // Manage focus for accessibility
   useEffect(() => {
     if (isVisible) {
-      // Focus the first input when modal opens
       setTimeout(() => {
         modalRef.current?.querySelector('input')?.focus();
       }, 100);
     } else {
-      // Return focus to the button when modal closes
       openButtonRef.current?.focus();
     }
   }, [isVisible]);

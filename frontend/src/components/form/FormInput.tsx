@@ -10,7 +10,7 @@ export const FormInput = ({
     required = false
 }: FormInputProps) => {
     return (
-        <div className="form-control mb-4">
+        <div className="text-left form-control mb-4">
             <label htmlFor={id} className="label">
                 <span className="label-text">
                     {label} {required && <span className="text-error">*</span>}
