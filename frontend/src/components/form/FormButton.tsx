@@ -1,19 +1,5 @@
-import React, { forwardRef } from 'react';
-
-type ButtonVariant = 'primary' | 'secondary' | 'danger' | 'success';
-type ButtonSize = 'sm' | 'md' | 'lg';
-type ButtonType = 'button' | 'submit' | 'reset';
-
-interface FormButtonProps {
-    type?: ButtonType;
-    variant: ButtonVariant;
-    size?: ButtonSize;
-    onClick?: () => void;
-    disabled?: boolean;
-    isLoading?: boolean;
-    children: React.ReactNode;
-    className?: string;
-}
+import { forwardRef } from 'react';
+import { FormButtonProps } from '../../types/index';
 
 export const FormButton = forwardRef<HTMLButtonElement, FormButtonProps>(({
     type = 'button',

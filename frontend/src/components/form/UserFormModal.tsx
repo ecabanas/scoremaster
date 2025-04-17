@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react';
 import { useModalState } from '../../hooks/useFormState';
 import FormContent from './FormContent';
-import { ParticipantFormData } from '../../types/ParticipantFormData';
+import { ParticipantFormData } from '../../types/index';
 import { FormButton } from './FormButton';
 
 const UserFormModal = () => {

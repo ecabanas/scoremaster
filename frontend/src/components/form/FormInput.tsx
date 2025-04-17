@@ -1,16 +1,4 @@
-import { FieldError, UseFormRegister } from 'react-hook-form';
-
-type InputType = 'text' | 'email' | 'password' | 'number';
-
-export interface FormInputProps {
-    id: string;
-    label: string;
-    type: InputType;
-    register: UseFormRegister<any>;
-    error?: FieldError;
-    placeholder?: string;
-    required?: boolean;
-}
+import { FormInputProps } from '../../types/index';
 
 export const FormInput = ({
     id,

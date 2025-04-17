@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import apiClient from '../services/apiClient';
-import { ApiResponse, SubmitResponseData } from '../types/apiResponses';
-import { ParticipantFormData } from '../types/ParticipantFormData';
+import { ApiResponse, SubmitResponseData } from '../types/api/responses';
+import { ParticipantFormData } from '../types/index';
 
 export function useFormSubmit() {
   const [isSubmitting, setIsSubmitting] = useState(false);

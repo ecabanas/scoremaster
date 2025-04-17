@@ -1,15 +1,12 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { formValidationSchema } from '../../validation/formValidation';
-import { ParticipantFormData } from '../../types/ParticipantFormData';
+import { ParticipantFormData, FormContentProps } from '../../types/index';
 import { FormInput } from './FormInput';
 import { FormButton } from './FormButton';
 import { useFormSubmit } from '../../hooks/useFormSubmit';
 
-interface FormContentProps {
-  onSubmit: (data: ParticipantFormData) => void;
-  onCancel: () => void;
-}
+
 
 function FormContent({ onSubmit, onCancel }: FormContentProps) {
   const { submitForm, isSubmitting, error } = useFormSubmit();

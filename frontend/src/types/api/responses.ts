@@ -1,4 +1,3 @@
-// Define the structure of the API response
 export interface ApiResponse<T> {
     success: boolean;
     message: string;
