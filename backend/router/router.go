@@ -10,10 +10,10 @@ import (
 	"scoremaster/backend/logs"
 )
 
-const (
+var (
 	ServerPort                 = ":8080"
-	AllowedMethods             = "GET,POST,PUT,DELETE,OPTIONS"
-	AllowedOrigins             = "http://localhost:5173"
+	AllowedMethods             = []string{"GET","POST","PUT","DELETE","OPTIONS"}
+	AllowedOrigins             = []string{"*"}
 	QuizBaseRoute              = "/api/quizzes"
 	CategoryBaseRoute          = "/api/categories"
 	QuestionBaseRoute          = "/api/questions"
@@ -50,8 +50,8 @@ func StartServer(router http.Handler) {
 
 func SetupServer(router *mux.Router) http.Handler {
 	corsMiddleware := configureCORS(
-		[]string{AllowedMethods},
-		[]string{AllowedOrigins})
+		AllowedMethods,
+		AllowedOrigins)
 	return corsMiddleware(router)
 }
 

@@ -10,7 +10,7 @@ help:
 	@echo "${GREEN}make build${NC}    		- Build all containers"
 	@echo "${GREEN}make up${NC}       		- Start all containers in detached mode"
 	@echo "${GREEN}make down${NC}     		- Stop and remove all containers"
-	@echo "${GREEN}make restart${NC}  		- Restart all containers"
+	@echo "${GREEN}make re${NC}  		- Restart all containers"
 	@echo "${GREEN}make logs${NC}     		- View logs of all containers"
 	@echo "${GREEN}make logs-front${NC}     	- View logs of the frontend container"
 	@echo "${GREEN}make logs-back${NC}		- View logs of the backend container"
@@ -33,7 +33,7 @@ down:
 	@echo "${YELLOW}Stopping containers...${NC}"
 	@$(DOCKER_COMPOSE) down
 
-restart:
+re:
 	@echo "${YELLOW}Restarting containers...${NC}"
 	@$(DOCKER_COMPOSE) restart
 

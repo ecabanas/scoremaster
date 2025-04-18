@@ -2,6 +2,7 @@ import HomePage from './pages/Home';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
+
   return (
     <Router>
       <div className="min-h-screen bg-base-200">
