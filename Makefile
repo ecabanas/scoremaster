@@ -11,6 +11,7 @@ help:
 	@echo "${GREEN}make up${NC}       		- Start all containers in detached mode"
 	@echo "${GREEN}make down${NC}     		- Stop and remove all containers"
 	@echo "${GREEN}make re${NC}  		- Restart all containers"
+	@echo "${GREEN}make rebuild-back${NC}	- Rebuild backend with latest code changes"
 	@echo "${GREEN}make logs${NC}     		- View logs of all containers"
 	@echo "${GREEN}make logs-front${NC}     	- View logs of the frontend container"
 	@echo "${GREEN}make logs-back${NC}		- View logs of the backend container"
@@ -20,12 +21,18 @@ help:
 	@echo "${GREEN}make exec-front${NC} 	- Execute commands in frontend container"
 	@echo "${GREEN}make exec-back${NC} 	- Execute commands in backend container"
 	@echo "${GREEN}make exec-db${NC}  		- Execute commands in DB container"
+	@echo "${GREEN}make purge${NC}		- Completely purge all containers, images & volumes"
+
 
 build:
 	@echo "${YELLOW}Building containers...${NC}"
 	@$(DOCKER_COMPOSE) build
 
-up:
+rebuild-back:
+	@echo "${YELLOW}Rebuilding backend container with latest code changes...${NC}"
+	@$(DOCKER_COMPOSE) up --build -d backend
+
+up: rebuild-back
 	@echo "${YELLOW}Starting containers in detached mode...${NC}"
 	@$(DOCKER_COMPOSE) up -d
 
@@ -33,7 +40,7 @@ down:
 	@echo "${YELLOW}Stopping containers...${NC}"
 	@$(DOCKER_COMPOSE) down
 
-re:
+re: rebuild-back
 	@echo "${YELLOW}Restarting containers...${NC}"
 	@$(DOCKER_COMPOSE) restart
 
@@ -72,5 +79,12 @@ exec-back:
 exec-db:
 	@echo "${YELLOW}Executing command in DB container...${NC}"
 	@$(DOCKER_COMPOSE) exec db bash
+
+purge:
+	@echo "${YELLOW}Completely purging Docker environment...${NC}"
+	@$(DOCKER_COMPOSE) down -v
+	@docker system prune -af --volumes
+	@echo "${GREEN}All containers, images, and volumes removed. Ready for a fresh start.${NC}"
+
 
 .PHONY: build up down restart logs clean ps exec migrate env-setup help

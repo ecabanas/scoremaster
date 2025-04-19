@@ -14,4 +14,5 @@ func main() {
 	router.SetupRouter(r)
 	wrappedRouter := router.SetupServer(r)
 	router.StartServer(wrappedRouter)
+
 }

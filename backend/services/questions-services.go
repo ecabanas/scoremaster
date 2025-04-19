@@ -15,6 +15,15 @@ func GetQuestionsWithAnswers() ([]models.Question, error) {
 	return questions, err
 }
 
+func GetQuestionByID(id uint) (models.Question, error) {
+	var question models.Question
+	err := database.DBConn.
+		Preload("Category").
+		Preload("Answers").
+		First(&question, id).Error
+	return question, err
+}
+
 // Create a new question
 func CreateQuestion(question *models.Question) error {
 	return database.DBConn.Create(question).Error

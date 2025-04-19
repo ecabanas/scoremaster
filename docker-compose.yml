@@ -27,6 +27,9 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    volumes:
+      - ./backend:/app/backend
+
   db:
     container_name: mysql-container
     image: mysql:latest
