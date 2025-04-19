@@ -13,7 +13,7 @@ import (
 var (
 	ServerPort                 = ":8080"
 	AllowedMethods             = []string{"GET","POST","PUT","DELETE","OPTIONS"}
-	AllowedOrigins             = []string{"*"}
+	AllowedOrigins             = []string{"http://localhost:8080", "http://localhost:5173"}
 	allowedHeaders				= []string{"Content-Type", "Authorization", "Origin", "Accept", "X-Requested-With"}
 	QuizBaseRoute              = "/api/quizzes"
 	CategoryBaseRoute          = "/api/categories"
