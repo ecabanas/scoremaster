@@ -25,6 +25,8 @@ var (
 func SetupRouter(router *mux.Router) {
 	// Create a new Participant
 	router.HandleFunc(ParticipantBaseRoute, controllers.CreateParticipant).Methods("POST")
+	router.HandleFunc(ParticipantBaseRoute+"/check-email", controllers.CheckEmailExists).Methods("POST")
+
 
 	//Quiz-related routes
 	router.HandleFunc(QuizBaseRoute, controllers.GetQuestionsWithAnswers).Methods("GET")

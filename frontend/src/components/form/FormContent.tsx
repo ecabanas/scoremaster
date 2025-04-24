@@ -10,21 +10,32 @@ import { useFormSubmit } from '../../hooks/useFormSubmit';
 
 function FormContent({ onSubmit, onCancel }: FormContentProps) {
   const { submitForm, isSubmitting, error } = useFormSubmit('/survey/1');
-
   // Initialize React Hook Form with Yup validation
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setError
   } = useForm<ParticipantFormData>({
     resolver: yupResolver(formValidationSchema),
+    mode: 'onBlur'
   });
 
   // Submit handler
   const handleFormSubmit: SubmitHandler<ParticipantFormData> = async (data) => {
-    const result = await submitForm(data);
-    if (result) {
-      onSubmit(data);
+    try {
+      const result = await submitForm(data);
+      if (result) {
+        onSubmit(data);
+      }
+    } catch (error: any) {
+      // If the backend returns a duplicate email error that wasn't caught by validation
+      if (error?.response?.data?.message?.includes('already exists')) {
+        setError('email', {
+          type: 'manual',
+          message: 'This email is already registered'
+        });
+      }
     }
   };
 
