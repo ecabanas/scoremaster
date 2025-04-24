@@ -9,7 +9,7 @@ import { useFormSubmit } from '../../hooks/useFormSubmit';
 
 
 function FormContent({ onSubmit, onCancel }: FormContentProps) {
-  const { submitForm, isSubmitting, error } = useFormSubmit();
+  const { submitForm, isSubmitting, error } = useFormSubmit('/survey/1');
 
   // Initialize React Hook Form with Yup validation
   const {

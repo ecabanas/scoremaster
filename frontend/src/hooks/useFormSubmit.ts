@@ -1,4 +1,5 @@
 import { useReducer } from 'react';
+import { useNavigate } from 'react-router-dom';
 import apiClient from '../services/apiClient';
 import {
   ApiResponse,
@@ -11,9 +12,11 @@ import {
 
 /**
  * Custom hook for handling form submission state and API interactions
+ * @param redirectPath Optional path to redirect to after successful submission
  * @returns Object with form submission state and functions
  */
-export function useFormSubmit() {
+export function useFormSubmit(redirectPath?: string) {
+  const navigate = useNavigate();
   const initialState: FormSubmitState = {
     isSubmitting: false,
     error: null,
@@ -46,6 +49,11 @@ export function useFormSubmit() {
         data
       );
       dispatch({ type: 'SUBMIT_SUCCESS' });
+
+      // If redirect path is provided, navigate to it
+      if (redirectPath) {
+        navigate(redirectPath);
+      }
       return response.data;
     } catch (error: unknown) {
       const errorMessage =
